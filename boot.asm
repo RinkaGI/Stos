@@ -1,47 +1,21 @@
-; Hola Mundo!
-mov ah, 0x0e
-mov al, 'H'
-int 0x10
+[org 0x7c00]
 
 mov ah, 0x0e
-mov al, 'o'
-int 0x10
+mov bx, stringToPrint
 
-mov ah, 0x0e
-mov al, 'l'
-int 0x10
+printString:
+    mov al, [bx]
+    cmp al, 0
+    je end
+    int 0x10
+    inc bx
+    jmp printString
+end:
 
-mov ah, 0x0e
-mov al, 'a'
-int 0x10
-
-mov ah, 0x0e
-mov al, ' '
-int 0x10
-
-mov ah, 0x0e
-mov al, 'm'
-int 0x10
-
-mov ah, 0x0e
-mov al, 'u'
-int 0x10
-
-mov ah, 0x0e
-mov al, 'n'
-int 0x10
-
-mov ah, 0x0e
-mov al, 'd'
-int 0x10
-
-mov ah, 0x0e
-mov al, 'o'
-int 0x10
-
-; Ejecutar desde la ubicacion actual
 jmp $
 
-; Hacerlo bootable
-times 510-($-$$) db 2
-db 0x55, 0xaa 
+stringToPrint:
+    db "Just a string on Stos", 0
+
+times 510-($-$$) db 1
+dw 0xaa55
