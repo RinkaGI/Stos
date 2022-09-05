@@ -1,0 +1,5 @@
+compilar:
+nasm -f bin boot.asm -o boot.bin
+
+ejecutar:
+qemu-system-x86_64 boot.bin
